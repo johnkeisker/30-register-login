@@ -1,10 +1,9 @@
 class UserService {
   constructor($q, $firebaseAuth) {
     this._$q = $q;
-    this._$firebaseObject = $firebaseObject;
 
     /* STEP 1 - ADD YOUR URL HERE */
-    this.ref = new Firebase("your firebase url");
+    this.ref = new Firebase("https://jk-assignment-30.firebaseio.com/");
     this.auth = $firebaseAuth(this.ref);
   }
 
@@ -21,16 +20,30 @@ class UserService {
   */
   login(user) {
     return new this._$q((resolve, reject) => {
+      this.auth.$authWithPassword(user)
+        .then((response) => {
+          this.user = response;
+          resolve(this.user);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 
   /* STEP 3 - Unauthorize the user. Firebase API docs! */
   logout() {
+    this.auth.$unauth();
   }
 
   /* STEP 4 - Return an object representing a "new" user with
     a blanK email and password */
   new() {
+    return {
+      email: "",
+      password: ""
+
+    }
   }
 
   /* STEP 5 - Below is a promise. Inside of it, use $createUser
@@ -45,6 +58,14 @@ class UserService {
   */
   create(user) {
     return new this._$q((resolve, reject) => {
+      this.auth.$createUser(user)
+        .then((response) => {
+          this.user = response;
+          resolve(this.user);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 
