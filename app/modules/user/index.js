@@ -18,6 +18,7 @@ user.config(config);
 user.controller('ProfileController', profileController);
 user.controller('LoginController', loginController);
 user.controller('RegisterController', registerController);
+user.service('UserService', service);
 
 // export it
 

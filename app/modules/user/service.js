@@ -58,7 +58,11 @@ class UserService {
   */
   create(user) {
     return new this._$q((resolve, reject) => {
+
       this.auth.$createUser(user)
+        .then((response) => {
+          return this.auth.$authWithPassword(user);
+        })
         .then((response) => {
           this.user = response;
           resolve(this.user);
@@ -66,7 +70,10 @@ class UserService {
         .catch((error) => {
           reject(error);
         });
+
     });
+
+
   }
 
 }

@@ -9,12 +9,22 @@ class ProfileController {
       If it fails, catch the error and use $state.go to send them
       to the login page.
     */
+    this._UserService
+      .isLoggedIn()
+      .then((response) => {
+        this.user = response;
+      })
+      .catch((error) => {
+        this._$state.go("login")
+      });
 
   }
 
   /* STEP 2 - Call the UserService logout function, then use $state.go
     to send them to the login page */
   logout() {
+    this._UserService.logout();
+    this._$stete.go('login');
   }
 }
 
