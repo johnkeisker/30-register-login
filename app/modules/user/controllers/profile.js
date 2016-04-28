@@ -13,6 +13,7 @@ class ProfileController {
       .isLoggedIn()
       .then((response) => {
         this.user = response;
+        console.log(this.user);
       })
       .catch((error) => {
         this._$state.go("login")
@@ -24,7 +25,7 @@ class ProfileController {
     to send them to the login page */
   logout() {
     this._UserService.logout();
-    this._$stete.go('login');
+    this._$state.go('login');
   }
 }
 
